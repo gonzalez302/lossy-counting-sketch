@@ -45,3 +45,10 @@ The trade-off is a known over-estimate. `frequency(x)` is never below the true c
 Pruning happens at fixed bucket boundaries (`bucketWidth = ceil(1/ε)` items). An item that appears just under the support threshold for a long stream will oscillate in and out of `heavy()` as buckets roll over; this is correct under the algorithm's guarantee, but it means `heavy()` is a snapshot, not a stable set. If you need stable reporting, track the returned items across calls and keep the maximum observed `freq`.
 
 Keys use JavaScript Map equality (SameValueZero): `123` and `"123"` are distinct items. There is no type coercion; if your stream mixes representations of the same logical item, normalise before calling `add`.
+
+## Design notes
+
+The window stores values eagerly rather than keeping running aggregates. Running
+sums drift with floating point over long streams, and recomputing from a small
+buffer is cheap enough that the drift is not worth the speed.
+
