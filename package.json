@@ -1,6 +1,6 @@
 {
   "name": "lossy-counting-sketch",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Approximates frequent items in a stream with deterministic error bounds and bounded memory.",
   "type": "module",
   "main": "src/index.js",
